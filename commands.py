@@ -18,26 +18,10 @@ def run_command_line(cmd_line):
             print_output("ls: no args")
 
     elif cmd == "cd":
-        if not args:
-            return
-        elif " " in args and not (args.startswith('"') and args.endswith('"')):
-            print_output("cd: too many arguments")
+        if args:
+            print_output(f"cd args: {args}")
         else:
-            if not args:
-                return
-            elif args.startswith('"') and args.endswith('"'):
-                args_list = args[1:-1].strip().split('/')
-            else:
-                args_list = args.split('/')
-            if args_list:
-                if args_list[0] in ["", ".", ".."] and len(args) > 1 and args_list[1] == "":
-                    args_list.pop()
-                if args_list[0] == "":
-                    state.dir_stack.clear()
-                elif args_list[0] == ".." and state.dir_stack:
-                    state.dir_stack.pop()
-                for arg in args_list[1:]:
-                    state.dir_stack.append(arg)
+            print_output("cd: no args")
 
     elif cmd == "exit":
         root.destroy()
